@@ -128,7 +128,7 @@ export const Layout = () => {
               <h4 className="font-semibold text-slate-900 mb-4">Contact</h4>
               <ul className="space-y-3">
                 <li className="text-slate-600">hello@workhorse.com.au</li>
-                <li className="text-slate-600">+61 (0) 412 345 678</li>
+                <li className="text-slate-600">+61 (0) 413 024 788</li>
               </ul>
             </div>
           </div>
