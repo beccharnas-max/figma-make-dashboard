@@ -1,14 +1,24 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'motion/react';
-import { Megaphone, Compass, MessageSquare, ArrowRight, Check } from 'lucide-react';
+import { motion, useScroll } from 'motion/react';
+import { Megaphone, Compass, MessageSquare, ArrowRight, Check, Star } from 'lucide-react';
 
 export const Services = () => {
+  const { scrollY } = useScroll();
+  const [bgColor, setBgColor] = useState('bg-white');
+
+  useEffect(() => {
+    return scrollY.onChange((y) => {
+      if (y > 50) setBgColor('bg-pink-50');
+      else setBgColor('bg-white');
+    });
+  }, [scrollY]);
+
   return (
-    <div className="flex flex-col w-full relative">
+    <div className={`flex flex-col w-full relative transition-colors duration-500 ${bgColor}`}>
       
       {/* Grid Background Effect */}
-      <div className="absolute top-0 left-0 w-full h-full pointer-events-none -z-10 opacity-30 fixed"
+      <div className="absolute top-0 left-0 w-full h-full pointer-events-none -z-10 opacity-20 fixed"
            style={{
              backgroundImage: 'linear-gradient(#cbd5e1 1px, transparent 1px), linear-gradient(to right, #cbd5e1 1px, transparent 1px)',
              backgroundSize: '40px 40px'
@@ -16,7 +26,7 @@ export const Services = () => {
       />
 
       {/* Intro */}
-      <section className="bg-white/50 backdrop-blur-sm pt-20 pb-20 md:pt-32 md:pb-24">
+      <section className="pt-20 pb-20 md:pt-32 md:pb-24">
         <div className="container mx-auto px-6 md:px-12 text-center">
           <motion.h1 
             initial={{ opacity: 0, y: 20 }}
@@ -29,12 +39,25 @@ export const Services = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed"
+            className="text-lg md:text-xl text-slate-700 max-w-2xl mx-auto leading-relaxed"
           >
             No flash-in-the-pan tactics. Just consistent, clear, and revenue-focused marketing engines. Taking the hard work off your plate so you can focus on your business.
           </motion.p>
         </div>
       </section>
+
+      {/* Calm Authority Ribbon */}
+      <div className="w-full overflow-hidden relative mb-12">
+        <div className="absolute -top-2 left-0 w-full h-12 -rotate-1">
+          <div className="flex whitespace-nowrap animate-marquee">
+            {[...Array(10)].map((_, i) => (
+              <span key={i} className="text-lg font-bold uppercase tracking-widest mx-8 flex items-center gap-2 px-4 py-1 bg-yellow-100 border-2 border-pink-500 rounded shadow-sm">
+                <Star size={16} /> Strategy First — Calm Authority — Sustainable Growth <Star size={16} />
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
 
       {/* Service Blocks */}
       <section className="py-20 md:py-28">
@@ -50,9 +73,9 @@ export const Services = () => {
               "Retargeting Campaigns",
               "Conversion Tracking Setup"
             ]}
-            accentColor="bg-pink-100"
-            borderColor="border-slate-900"
-            iconColor="text-pink-600"
+            bg="bg-yellow-100"
+            border="border-pink-500"
+            iconColor="text-pink-700"
             align="left"
           />
 
@@ -66,9 +89,9 @@ export const Services = () => {
               "Content Strategy Roadmaps",
               "Competitor Analysis"
             ]}
-            accentColor="bg-cyan-100"
-            borderColor="border-slate-900"
-            iconColor="text-cyan-600"
+            bg="bg-pink-100"
+            border="border-yellow-300"
+            iconColor="text-yellow-500"
             align="right"
           />
 
@@ -82,9 +105,9 @@ export const Services = () => {
               "Community Engagement",
               "Monthly Performance Reporting"
             ]}
-            accentColor="bg-green-100"
-            borderColor="border-slate-900"
-            iconColor="text-green-700"
+            bg="bg-yellow-100"
+            border="border-pink-500"
+            iconColor="text-pink-700"
             align="left"
           />
 
@@ -92,17 +115,17 @@ export const Services = () => {
       </section>
 
       {/* CTA */}
-      <section className="py-20 bg-slate-50 border-t-2 border-slate-900 border-dashed">
+      <section className="py-20 bg-white border-t-2 border-dashed border-pink-500">
         <div className="container mx-auto px-6 md:px-12 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6 font-serif">
             Not sure which service you need?
           </h2>
-          <p className="text-lg text-slate-600 mb-10 max-w-xl mx-auto">
+          <p className="text-lg text-slate-700 mb-10 max-w-xl mx-auto">
             That's normal. Most partnerships start with a simple conversation to diagnose the gap between where you are and where you want to be.
           </p>
           <Link 
             to="/contact" 
-            className="inline-flex items-center gap-2 px-10 py-5 rounded-full bg-slate-900 text-white font-bold text-lg hover:-translate-y-1 transition-transform border-2 border-transparent hover:border-slate-900 hover:bg-white hover:text-slate-900 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]"
+            className="inline-flex items-center gap-2 px-10 py-5 rounded-full bg-pink-500 text-white font-bold text-lg hover:-translate-y-1 transition-transform border-2 border-yellow-200 hover:border-pink-700 hover:bg-yellow-100 hover:text-pink-700 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]"
           >
             Book a Free Consultation <ArrowRight size={20} />
           </Link>
@@ -118,8 +141,8 @@ const ServiceBlock = ({
   title, 
   description, 
   features, 
-  accentColor, 
-  borderColor,
+  bg, 
+  border,
   iconColor,
   align = 'left' 
 }: { 
@@ -127,8 +150,8 @@ const ServiceBlock = ({
   title: string, 
   description: string, 
   features: string[],
-  accentColor: string,
-  borderColor: string,
+  bg: string,
+  border: string,
   iconColor: string,
   align?: 'left' | 'right'
 }) => {
@@ -141,9 +164,9 @@ const ServiceBlock = ({
       className={`flex flex-col md:flex-row gap-12 md:gap-20 items-center ${align === 'right' ? 'md:flex-row-reverse' : ''}`}
     >
       <div className="flex-1 w-full">
-        <div className={`p-10 md:p-12 rounded-3xl ${accentColor} border-2 ${borderColor} shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] relative overflow-hidden group hover:-translate-y-1 transition-transform duration-300`}>
+        <div className={`p-10 md:p-12 rounded-3xl ${bg} border-2 ${border} shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] relative overflow-hidden group hover:-translate-y-1 transition-transform duration-300`}>
           
-          <div className={`w-16 h-16 rounded-2xl bg-white border-2 border-slate-900 flex items-center justify-center mb-8 ${iconColor} shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]`}>
+          <div className={`w-16 h-16 rounded-2xl bg-white border-2 ${border} flex items-center justify-center mb-8 ${iconColor} shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]`}>
             <Icon size={32} strokeWidth={2} />
           </div>
           
@@ -155,7 +178,7 @@ const ServiceBlock = ({
           <ul className="space-y-4">
             {features.map((feature, i) => (
               <li key={i} className="flex items-start gap-3 text-slate-800 font-medium">
-                <div className={`mt-1 flex-shrink-0 w-5 h-5 rounded-full bg-white border border-slate-900 flex items-center justify-center ${iconColor}`}>
+                <div className={`mt-1 flex-shrink-0 w-5 h-5 rounded-full bg-white border-2 ${border} flex items-center justify-center ${iconColor}`}>
                   <Check size={12} strokeWidth={4} />
                 </div>
                 <span>{feature}</span>
@@ -165,14 +188,12 @@ const ServiceBlock = ({
         </div>
       </div>
       
-      {/* Visual / Context side */}
       <div className="flex-1 hidden md:flex items-center justify-center">
          <div className="relative p-8 w-full max-w-sm">
-            <div className={`absolute inset-0 ${accentColor} opacity-20 blur-3xl rounded-full`} />
-            {/* Abstract Wireframe Representation */}
-            <div className="relative z-10 grid gap-4 bg-white p-6 rounded-2xl shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] border-2 border-slate-900 rotate-3 transition-transform hover:rotate-0">
+            <div className={`absolute inset-0 ${bg} opacity-20 blur-3xl rounded-full`} />
+            <div className="relative z-10 grid gap-4 bg-white p-6 rounded-2xl shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] border-2 ${border} rotate-3 transition-transform hover:rotate-0">
               <div className="flex items-center gap-4 mb-4">
-                 <div className={`w-10 h-10 rounded-full ${accentColor} border-2 border-slate-900 flex items-center justify-center ${iconColor}`}>
+                 <div className={`w-10 h-10 rounded-full ${bg} border-2 ${border} flex items-center justify-center ${iconColor}`}>
                     <Icon size={18} />
                  </div>
                  <div className="h-3 w-24 bg-slate-200 rounded-full" />
@@ -182,9 +203,9 @@ const ServiceBlock = ({
                 <div className="w-5/6 h-3 bg-slate-100 rounded-full" />
                 <div className="w-4/6 h-3 bg-slate-100 rounded-full" />
               </div>
-              <div className="mt-4 pt-4 border-t-2 border-dashed border-slate-200 flex justify-between">
+              <div className="mt-4 pt-4 border-t-2 border-dashed ${border} flex justify-between">
                  <div className="w-16 h-3 bg-slate-200 rounded-full" />
-                 <div className={`w-6 h-6 rounded-full ${accentColor} border-2 border-slate-900`} />
+                 <div className={`w-6 h-6 rounded-full ${bg} border-2 ${border}`} />
               </div>
             </div>
          </div>

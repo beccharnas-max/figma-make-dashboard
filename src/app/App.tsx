@@ -5,6 +5,9 @@ import { Home } from './pages/Home';
 import { About } from './pages/About';
 import { Services } from './pages/Services';
 import { Contact } from './pages/Contact';
+import SheMeansBusiness from './pages/Shemeansbusiness';
+
+
 
 // ScrollToTop component to handle scroll position on route change
 const ScrollToTop = () => {
@@ -27,6 +30,7 @@ const App = () => {
           <Route path="about" element={<About />} />
           <Route path="services" element={<Services />} />
           <Route path="contact" element={<Contact />} />
+          <Route path="/she-means-business" element={<SheMeansBusiness />} />
         </Route>
       </Routes>
     </BrowserRouter>

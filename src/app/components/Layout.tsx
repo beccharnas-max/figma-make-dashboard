@@ -48,6 +48,7 @@ export const Layout = () => {
             <NavLink to="/about">About</NavLink>
             <NavLink to="/services">Services</NavLink>
             <NavLink to="/contact">Contact</NavLink>
+            <NavLink to="/she-means-business">She Means Business</NavLink>
             <Link
               to="/contact"
               className="px-5 py-2.5 rounded-full bg-slate-900 text-white text-sm font-medium hover:bg-slate-800 transition-colors shadow-sm"
